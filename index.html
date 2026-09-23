@@ -1,198 +1,168 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shreya | Data Engineer & AI Architect</title>
+    <title>Shreya Mohanty | Full Stack Data Engineer & AI Architect</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4f46e5', // Indigo-600
-                        secondary: '#0ea5e9', // Sky-500
-                        lightBg: '#f8fafc', // Slate-50
-                        cardBg: '#ffffff',
+                        brand: {
+                            50: '#f0f6ff',
+                            100: '#e0edff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-            color: #0f172a;
-            overflow-x: hidden;
-        }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
         .glass-card {
-            background: #ffffff;
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-        }
-        .glass-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(79, 70, 229, 0.4);
-            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1), 0 10px 10px -5px rgba(79, 70, 229, 0.04);
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        .floating {
-            animation: float 5s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-indigo-600 selection:text-white">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-200 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-500 flex items-center justify-center font-bold text-xl text-white shadow-md shadow-indigo-500/20">
-                    S
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-card shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#home" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
+                    SM
                 </div>
-                <span class="text-xl font-bold tracking-tight text-slate-900">SHREYA<span class="text-indigo-600">.</span>DATA</span>
-            </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight text-slate-900 block leading-none">Shreya Mohanty</span>
+                    <span class="text-xs text-brand-600 font-semibold tracking-wider uppercase mt-1 block">Data Engineer & AI Architect</span>
+                </div>
+            </a>
 
             <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center space-x-1 bg-slate-100 p-1.5 rounded-full border border-slate-200">
-                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-5 py-2 rounded-full text-sm font-medium transition-all text-white bg-indigo-600 shadow-md shadow-indigo-500/20">Home</button>
-                <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-5 py-2 rounded-full text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-white/50">About</button>
-                <button onclick="switchTab('pipelines')" id="nav-pipelines" class="nav-btn px-5 py-2 rounded-full text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-white/50">Pipelines & Lakehouse</button>
-                <button onclick="switchTab('aimodels')" id="nav-aimodels" class="nav-btn px-5 py-2 rounded-full text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-white/50">AI & RAG Systems</button>
-                <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-5 py-2 rounded-full text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-white/50">Contact</button>
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                <button onclick="switchTab('home')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-brand-600 bg-brand-50 transition-colors" data-tab="home">Home</button>
+                <button onclick="switchTab('about')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors" data-tab="about">About</button>
+                <button onclick="switchTab('experience')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors" data-tab="experience">Experience</button>
+                <button onclick="switchTab('projects')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors" data-tab="projects">Projects & AI</button>
+                <button onclick="switchTab('contact')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors" data-tab="contact">Contact</button>
             </nav>
 
             <div class="hidden md:flex items-center space-x-4">
-                <button onclick="switchTab('contact')" class="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-indigo-600 to-sky-600 text-white hover:opacity-90 transition-all shadow-md shadow-indigo-500/20 active:scale-95">
-                    Let's Connect
-                </button>
+                <a href="#contact" onclick="switchTab('contact')" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-lg shadow-brand-500/20 transition-all hover:scale-105 flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> Get in Touch
+                </a>
             </div>
 
-            <!-- Mobile Menu Toggle Button -->
-            <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700 hover:text-slate-900 text-2xl p-2 focus:outline-none">
-                <i id="mobile-menu-icon" class="fa-solid fa-bars"></i>
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
 
-        <!-- Mobile Nav Menu -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 glass-panel border-b border-slate-200 px-6 py-4 flex flex-col space-y-3 shadow-lg">
-            <button onclick="switchTab('home'); toggleMobileMenu();" class="text-left py-2 px-4 rounded-lg hover:bg-slate-100 font-medium text-slate-900">Home</button>
-            <button onclick="switchTab('about'); toggleMobileMenu();" class="text-left py-2 px-4 rounded-lg hover:bg-slate-100 font-medium text-slate-600">About</button>
-            <button onclick="switchTab('pipelines'); toggleMobileMenu();" class="text-left py-2 px-4 rounded-lg hover:bg-slate-100 font-medium text-slate-600">Pipelines & Lakehouse</button>
-            <button onclick="switchTab('aimodels'); toggleMobileMenu();" class="text-left py-2 px-4 rounded-lg hover:bg-slate-100 font-medium text-slate-600">AI & RAG Systems</button>
-            <button onclick="switchTab('contact'); toggleMobileMenu();" class="text-left py-2 px-4 rounded-lg hover:bg-slate-100 font-medium text-slate-600">Contact</button>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-slate-200 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg text-base font-medium text-brand-600 bg-brand-50">Home</button>
+            <button onclick="switchTab('about'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg text-base font-medium text-slate-600 hover:bg-slate-100">About</button>
+            <button onclick="switchTab('experience'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg text-base font-medium text-slate-600 hover:bg-slate-100">Experience</button>
+            <button onclick="switchTab('projects'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg text-base font-medium text-slate-600 hover:bg-slate-100">Projects & AI</button>
+            <button onclick="switchTab('contact'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-lg text-base font-medium text-slate-600 hover:bg-slate-100">Contact</button>
         </div>
     </header>
 
-    <main class="flex-grow pt-28 pb-16 px-4 sm:px-6 max-w-7xl mx-auto w-full">
+    <!-- Main Dynamic Content Container -->
+    <main class="pt-24 min-h-screen">
 
-        <!-- TAB 1: HOME VIEW -->
-        <section id="tab-home" class="tab-content flex flex-col justify-center min-h-[75vh]">
+        <!-- ==================== TAB 1: HOME ==================== -->
+        <section id="tab-home" class="tab-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold tracking-wider uppercase">
-                        <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
-                        Data Engineer & AI Architect
-                    </div>
-                    
-                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                        Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-600">Shreya</span>. I architect intelligent data systems.
-                    </h1>
-                    
-                    <p class="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                        Specializing in scalable distributed data pipelines, cloud data lakehouses, MLOps infrastructure, and production-grade Generative AI LLM RAG architectures.
-                    </p>
-
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-                        <button onclick="switchTab('pipelines')" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-sky-600 text-white font-semibold text-base shadow-lg shadow-indigo-500/25 hover:opacity-95 transition-all transform hover:-translate-y-0.5">
-                            Explore Architectures <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </button>
-                        <button onclick="switchTab('aimodels')" class="px-8 py-4 rounded-2xl glass-card text-slate-800 font-semibold text-base hover:bg-slate-50 transition-all border border-slate-200">
-                            View AI Systems
-                        </button>
-                    </div>
-
-                    <div class="pt-8 border-t border-slate-200 grid grid-cols-3 gap-4 text-center lg:text-left">
-                        <div>
-                            <p class="text-2xl font-extrabold text-slate-900">Petabyte+</p>
-                            <p class="text-xs text-slate-500 mt-1">Data Processed Daily</p>
-                        </div>
-                        <div>
-                            <p class="text-2xl font-extrabold text-slate-900">99.99%</p>
-                            <p class="text-xs text-slate-500 mt-1">Pipeline Uptime</p>
-                        </div>
-                        <div>
-                            <p class="text-2xl font-extrabold text-slate-900">25+</p>
-                            <p class="text-xs text-slate-500 mt-1">AI Models Deployed</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-5 relative">
-                    <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-indigo-500 to-sky-400 opacity-20 blur-2xl"></div>
-                    <div class="relative glass-panel p-4 rounded-3xl border border-slate-200 shadow-xl overflow-hidden group bg-white">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Data Architecture Dashboard" class="w-full h-[400px] object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute bottom-6 left-6 right-6 glass-panel p-4 rounded-2xl backdrop-blur-md border border-slate-200/80 flex items-center space-x-4 bg-white/90 shadow-lg">
-                            <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl">
-                                <i class="fa-solid fa-network-wired"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Distributed Systems & AI</h4>
-                                <p class="text-xs text-slate-500">Spark, Airflow, Snowflake, LangChain & PyTorch</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 2: ABOUT VIEW -->
-        <section id="tab-about" class="tab-content hidden space-y-16 animate-fadeIn">
-            <div class="text-center max-w-3xl mx-auto space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">About Shreya</h2>
-                <p class="text-slate-600 text-base">Engineering high-throughput data platforms and state-of-the-art AI architectures.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-5 relative">
-                    <div class="relative rounded-3xl overflow-hidden aspect-[4/5] border border-slate-200 shadow-xl bg-white p-4">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Shreya Professional Portrait" class="w-full h-full object-cover rounded-2xl">
-                    </div>
-                </div>
-
                 <div class="lg:col-span-7 space-y-6">
-                    <div class="glass-panel p-8 rounded-3xl border border-slate-200 space-y-6 bg-white shadow-sm">
-                        <h3 class="text-2xl font-bold text-slate-900">Technical Background & Expertise</h3>
-                        <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
-                            Hello! I'm Shreya, a Senior Data Engineer and AI Architect with over 7 years of experience building resilient data pipelines, cloud-native data lakehouses, and high-performance machine learning systems. I bridge the gap between raw, unstructured enterprise streams and actionable LLM-powered intelligence.
-                        </p>
-                        
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
-                            <div class="glass-card p-4 rounded-xl text-center">
-                                <p class="text-indigo-600 font-bold text-base">Spark & Kafka</p>
-                                <p class="text-xs text-slate-500 mt-1">Streaming & Batch</p>
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-700 text-xs font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+                        7-Year Senior Complexity & System Sovereignty
+                    </div>
+                    <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        Building Mass-Scale <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">Data Architectures</span> & AI Pipelines
+                    </h1>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Performance-driven Full Stack Data Engineer with enterprise expertise designing, deploying, and optimizing cross-platform cloud infrastructures across GCP, Snowflake, and AWS. Turning complex data feeds into automated, low-latency business value.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="switchTab('projects')" class="px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-xl shadow-brand-500/20 transition-all hover:scale-105 flex items-center gap-2">
+                            Explore Projects <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="switchTab('experience')" class="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-700 font-semibold border border-slate-200 shadow-sm transition-all hover:scale-105">
+                            View Experience
+                        </button>
+                    </div>
+
+                    <!-- Quick Highlights Grid -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200">
+                        <div>
+                            <span class="block text-2xl font-bold text-slate-900">2+ Yrs</span>
+                            <span class="text-xs text-slate-500 font-medium">Enterprise Experience</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-slate-900">35%</span>
+                            <span class="text-xs text-slate-500 font-medium">Latency Reduction</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold text-slate-900">Top 20</span>
+                            <span class="text-xs text-slate-500 font-medium">2025 Enterprise Hackathon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Profile Visual Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative">
+                        <div class="absolute -inset-1.5 bg-gradient-to-r from-brand-600 to-indigo-500 rounded-3xl blur-xl opacity-20"></div>
+                        <div class="relative glass-card rounded-3xl p-8 shadow-xl space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center text-white font-bold text-2xl shadow-lg justify-center">
+                                    SM
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl text-slate-900">Shreya Mohanty</h3>
+                                    <p class="text-sm text-brand-600 font-medium">Bangalore / Pune / Hyderabad</p>
+                                    <p class="text-xs text-slate-400 mt-0.5">s44883425@gmail.com</p>
+                                </div>
                             </div>
-                            <div class="glass-card p-4 rounded-xl text-center">
-                                <p class="text-indigo-600 font-bold text-base">Snowflake / Databricks</p>
-                                <p class="text-xs text-slate-500 mt-1">Data Lakehouse</p>
+
+                            <div class="space-y-3">
+                                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Core Tech Stack</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-lg border border-brand-100">Snowflake</span>
+                                    <span class="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-lg border border-brand-100">BigQuery</span>
+                                    <span class="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-lg border border-brand-100">PySpark / Scala</span>
+                                    <span class="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-lg border border-brand-100">Apache Airflow</span>
+                                    <span class="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-lg border border-brand-100">Python & FastAPI</span>
+                                    <span class="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-lg border border-brand-100">AWS / GCP Cloud</span>
+                                </div>
                             </div>
-                            <div class="glass-card p-4 rounded-xl text-center">
-                                <p class="text-indigo-600 font-bold text-base">LangChain & RAG</p>
-                                <p class="text-xs text-slate-500 mt-1">GenAI Architecture</p>
+
+                            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                                <div class="flex items-center justify-between text-xs font-semibold text-slate-600">
+                                    <span>Pipeline Cost Optimization</span>
+                                    <span class="text-brand-600">28% Saved</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-brand-600 h-full rounded-full w-4/5"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -200,296 +170,380 @@
             </div>
         </section>
 
-        <!-- TAB 3: PIPELINES & LAKEHOUSE VIEW -->
-        <section id="tab-pipelines" class="tab-content hidden space-y-10 animate-fadeIn">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <!-- ==================== TAB 2: ABOUT ==================== -->
+        <section id="tab-about" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="space-y-12">
+                <div class="max-w-3xl">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Professional Overview</h2>
+                    <p class="mt-4 text-lg text-slate-600 leading-relaxed">
+                        Performance-driven, highly analytical Full Stack Data Engineer with 2+ years of enterprise experience designing, deploying, and optimizing mass-scale data architectures using Google Cloud Platform (GCP) native tools and Snowflake data warehouses, combined with a seamless capacity to fluidly translate workflows across AWS environments.
+                    </p>
+                </div>
+
+                <!-- Education & Achievements -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-card rounded-2xl p-6 shadow-sm space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold">
+                            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Education</h3>
+                        <div>
+                            <h4 class="font-semibold text-slate-800">VIT-AP University - B.Tech in Computer Science Engineering</h4>
+                            <p class="text-sm text-brand-600 font-medium">Vijayawada, Andhra Pradesh, India | 2020 - 2024</p>
+                        </div>
+                        <ul class="space-y-2 text-sm text-slate-600 pt-2 border-t border-slate-100">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="award" class="w-4 h-4 text-brand-600 mt-1 shrink-0"></i>
+                                <span>Ranked Top 20 among 700 teams in the 2025 Enterprise Hackathon for constructing semantic data enrichment and intelligent information retrieval solutions.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="cpu" class="w-4 h-4 text-brand-600 mt-1 shrink-0"></i>
+                                <span>Reached the final round of the NVIDIA GPU Codeathon demonstrating proficiency in GPU programming and parallel accelerated computing.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 shadow-sm space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900">Certifications</h3>
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                                <span class="block font-semibold text-sm text-slate-800">AWS Cloud Architect</span>
+                                <span class="text-xs text-slate-500">ByteXL</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                                <span class="block font-semibold text-sm text-slate-800">Machine Learning</span>
+                                <span class="text-xs text-slate-500">Boston IT Solution</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                                <span class="block font-semibold text-sm text-slate-800">CUDA Programming</span>
+                                <span class="text-xs text-slate-500">NVIDIA</span>
+                            </div>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                                <span class="block font-semibold text-sm text-slate-800">Deep Learning</span>
+                                <span class="text-xs text-slate-500">NVIDIA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Skills Matrix -->
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-slate-900">Technical Expertise & Competencies</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="glass-card rounded-2xl p-6 shadow-sm space-y-3">
+                            <h4 class="font-bold text-brand-700 flex items-center gap-2">
+                                <i data-lucide="database" class="w-5 h-5"></i> Data Warehouses & GCP
+                            </h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Snowflake, BigQuery, Cloud Composer (Airflow), Dataproc (Spark), Dataflow (Beam), Cloud Run, Pub/Sub, Cloud SQL, IAM Governance, Budget Optimization.</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 shadow-sm space-y-3">
+                            <h4 class="font-bold text-brand-700 flex items-center gap-2">
+                                <i data-lucide="cloud" class="w-5 h-5"></i> AWS Fluid Competency
+                            </h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Amazon S3, EMR Distributed Computing, AWS Glue Serverless ETL, Redshift, Athena, DynamoDB NoSQL engine.</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 shadow-sm space-y-3">
+                            <h4 class="font-bold text-brand-700 flex items-center gap-2">
+                                <i data-lucide="cpu" class="w-5 h-5"></i> Distributed Processing
+                            </h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">PySpark Core, Spark with Scala, SparkSQL, Hadoop, Hive / HiveQL, Kafka Messaging, Cross-Cloud Integration.</p>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 shadow-sm space-y-3">
+                            <h4 class="font-bold text-brand-700 flex items-center gap-2">
+                                <i data-lucide="code" class="w-5 h-5"></i> Software & DevOps
+                            </h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Python (Pandas, NumPy, FastAPI, asyncio, Playwright), Scala, Java, Advanced SQL, Airflow DAGs, Jenkins, GitHub Actions, Docker, Looker/Tableau.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: EXPERIENCE ==================== -->
+        <section id="tab-experience" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="space-y-12">
                 <div>
-                    <h2 class="text-3xl font-extrabold text-slate-900">Data Engineering & Lakehouse Architectures</h2>
-                    <p class="text-slate-600 text-sm mt-1">Production-grade distributed pipelines, ETL automation, and cloud warehousing</p>
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Professional Experience</h2>
+                    <p class="mt-2 text-slate-600">Enterprise data engineering and architectural leadership history.</p>
                 </div>
 
-                <!-- Search & Filter Controls -->
-                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
-                    <div class="glass-panel px-4 py-2 rounded-xl flex items-center space-x-2 border border-slate-200 flex-grow md:flex-grow-0 bg-white">
-                        <i class="fa-solid fa-magnifying-glass text-indigo-600 text-sm"></i>
-                        <input type="text" id="pipeline-search" oninput="filterPipelines()" placeholder="Search pipelines..." class="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full">
+                <div class="space-y-8 relative before:absolute before:inset-0 before:left-7 before:w-0.5 before:bg-slate-200">
+                    <!-- Role 1 -->
+                    <div class="relative flex items-start space-x-6">
+                        <div class="w-14 h-14 rounded-2xl bg-brand-600 text-white flex items-center justify-center font-bold shadow-lg z-10 shrink-0">
+                            <i data-lucide="briefcase" class="w-6 h-6"></i>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 shadow-sm flex-1 space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900">Full Stack Data Engineer</h3>
+                                    <p class="text-brand-600 font-semibold">Ford Business Solutions, India</p>
+                                </div>
+                                <span class="px-3 py-1 bg-brand-50 text-brand-700 rounded-full text-xs font-semibold w-fit">July 2024 - Present</span>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">7-Year Senior Complexity and System Sovereignty Scope</p>
+                            
+                            <ul class="space-y-3 text-sm text-slate-600">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-600 mt-2 shrink-0"></span>
+                                    <span><strong>Snowflake to GCP Python DAG Framework:</strong> Designed high-performance migration ingestion framework using custom Python DAGs in Airflow; automated secure extraction and compliance validation across 10 feeds, reducing manual work by 60%.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-600 mt-2 shrink-0"></span>
+                                    <span><strong>Distributed Compute Optimization:</strong> Scaled PySpark and Spark Scala ETL pipelines across 14 enterprise feeds; resolved data skewness bottlenecks, cutting multi-terabyte ingestion latency by 35%.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-600 mt-2 shrink-0"></span>
+                                    <span><strong>Playwright Python Automated Ingestion:</strong> Engineered automated web-scraping ingestion using Playwright and async Python to extract market telemetry, landing flat files into GCS / S3 with 100% integrity.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-600 mt-2 shrink-0"></span>
+                                    <span><strong>Advanced SQL & Dimensional Modeling:</strong> Deployed optimized analytical transformation layers using complex joins, CTEs, window functions, and Star/Snowflake schemas, boosting efficiency by 30%.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-600 mt-2 shrink-0"></span>
+                                    <span><strong>Looker Studio & Analytics Delivery:</strong> Resilient semantic layers and reporting in Looker/Tableau; compressed multi-source data refresh runs from 6 hours to under 2 hours.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-600 mt-2 shrink-0"></span>
+                                    <span><strong>Real-Time Stream Integration:</strong> Spearheaded supply chain risk intelligence platform processing 1,300 global facilities via Cloud Run, Pub/Sub, and Kafka with automated DLQ recovery, reducing MTTR by 40%.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-600 mt-2 shrink-0"></span>
+                                    <span><strong>CI/CD Ingestion & Cost Governance:</strong> Standardized delivery loops with Maven, Git, Jenkins, and SonarQube quality gates; lowered cloud compute overhead costs by 28%.</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="glass-panel px-4 py-2 rounded-xl flex items-center space-x-2 border border-slate-200 bg-white">
-                        <i class="fa-solid fa-filter text-indigo-600 text-sm"></i>
-                        <select id="pipeline-filter" onchange="filterPipelines()" class="bg-transparent text-xs text-slate-900 focus:outline-none cursor-pointer">
-                            <option value="all">All Systems</option>
-                            <option value="streaming">Real-time Streaming</option>
-                            <option value="lakehouse">Data Lakehouse</option>
-                            <option value="etl">Batch ETL</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pipelines Grid -->
-            <div id="pipelines-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Pipeline 1 -->
-                <div class="pipeline-card glass-card rounded-3xl overflow-hidden border border-slate-200 flex flex-col group cursor-pointer" data-category="streaming" data-title="Real-time Kafka & Spark Streaming" data-desc="Sub-second streaming telemetry pipeline ingesting 50k events/sec using Apache Kafka, Apache Spark Structured Streaming, and Delta Lake sink." onclick="openModal('Real-Time Telemetry & Kafka Stream', 'Sub-second streaming telemetry pipeline ingesting 50k events/sec using Apache Kafka, Apache Spark Structured Streaming, and Delta Lake sink on AWS S3. Handled automatic schema evolution and sub-second windowed aggregations.', 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80')">
-                    <div class="relative overflow-hidden aspect-video bg-slate-100">
-                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="Kafka Streaming" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-3 right-3 glass-panel px-3 py-1 rounded-full text-xs font-bold text-indigo-600 bg-white/90">Streaming</div>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Real-Time Kafka & Spark Pipeline</h3>
-                            <p class="text-slate-600 text-xs mt-2 line-clamp-2">High-throughput event streaming ingestion architecture processing over 50,000 events per second with sub-second latency.</p>
+                    <!-- Role 2 -->
+                    <div class="relative flex items-start space-x-6">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-lg z-10 shrink-0">
+                            <i data-lucide="code-2" class="w-6 h-6"></i>
                         </div>
-                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 text-xs text-slate-500">
-                            <span class="flex items-center space-x-1"><i class="fa-solid fa-server text-indigo-600"></i> <span>Kafka / Spark</span></span>
-                            <span class="text-indigo-600 font-semibold flex items-center">Case Study <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pipeline 2 -->
-                <div class="pipeline-card glass-card rounded-3xl overflow-hidden border border-slate-200 flex flex-col group cursor-pointer" data-category="lakehouse" data-title="Enterprise Multi-Cloud Lakehouse" data-desc="Unified Databricks Delta Lake architecture combining raw bronze, cleaned silver, and aggregated gold tables for 400+ data analysts." onclick="openModal('Enterprise Multi-Cloud Lakehouse', 'Unified Databricks Delta Lake architecture combining raw bronze, cleaned silver, and aggregated gold tables for 400+ data analysts. Reduced storage costs by 42% and query times by 65%.', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80')">
-                    <div class="relative overflow-hidden aspect-video bg-slate-100">
-                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" alt="Lakehouse Architecture" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-3 right-3 glass-panel px-3 py-1 rounded-full text-xs font-bold text-indigo-600 bg-white/90">Lakehouse</div>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Enterprise Multi-Cloud Lakehouse</h3>
-                            <p class="text-slate-600 text-xs mt-2 line-clamp-2">Unified Delta Lake architecture optimized for ACID compliance, zero-copy cloning, and high-concurrency BI reporting.</p>
-                        </div>
-                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 text-xs text-slate-500">
-                            <span class="flex items-center space-x-1"><i class="fa-solid fa-database text-indigo-600"></i> <span>Databricks / S3</span></span>
-                            <span class="text-indigo-600 font-semibold flex items-center">Case Study <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pipeline 3 -->
-                <div class="pipeline-card glass-card rounded-3xl overflow-hidden border border-slate-200 flex flex-col group cursor-pointer" data-category="etl" data-title="Airflow Automated ETL Orchestration" data-desc="Modular Apache Airflow DAG network orchestrating 200+ daily data transformations across Snowflake, PostgreSQL, and REST APIs with automated data quality checks." onclick="openModal('Airflow Automated ETL Orchestration', 'Modular Apache Airflow DAG network orchestrating 200+ daily data transformations across Snowflake, PostgreSQL, and REST APIs with automated Great Expectations validation.', 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80')">
-                    <div class="relative overflow-hidden aspect-video bg-slate-100">
-                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=800&q=80" alt="ETL Orchestration" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-3 right-3 glass-panel px-3 py-1 rounded-full text-xs font-bold text-indigo-600 bg-white/90">Batch ETL</div>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Airflow Automated ETL Orchestration</h3>
-                            <p class="text-slate-600 text-xs mt-2 line-clamp-2">Fault-tolerant workflow orchestration featuring dynamic task mapping and automated data quality assertions.</p>
-                        </div>
-                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 text-xs text-slate-500">
-                            <span class="flex items-center space-x-1"><i class="fa-solid fa-gears text-indigo-600"></i> <span>Airflow / Snowflake</span></span>
-                            <span class="text-indigo-600 font-semibold flex items-center">Case Study <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        <div class="glass-card rounded-2xl p-6 shadow-sm flex-1 space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900">Full Stack Data Engineering Intern</h3>
+                                    <p class="text-indigo-600 font-semibold">Ford Business Solutions, India</p>
+                                </div>
+                                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-semibold w-fit">April 2024 - June 2024</span>
+                            </div>
+                            <ul class="space-y-3 text-sm text-slate-600">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 mt-2 shrink-0"></span>
+                                    <span>Conducted technical onboarding evaluations and feasibility mapping across legacy factory architectures; modeled 10 integration pipelines using Hadoop and Hive, reducing setup steps by 60%.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 mt-2 shrink-0"></span>
+                                    <span>Programmed modular cleaning modules using Python (Pandas, NumPy) to parse unstructured log blocks into structured JSON, CSV, and Parquet staging environments.</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 4: AI & RAG SYSTEMS VIEW -->
-        <section id="tab-aimodels" class="tab-content hidden space-y-10 animate-fadeIn">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div>
-                    <h2 class="text-3xl font-extrabold text-slate-900">AI Architecture & LLM RAG Systems</h2>
-                    <p class="text-slate-600 text-sm mt-1">Retrieval-Augmented Generation, Vector Databases, and Scalable MLOps</p>
-                </div>
-
-                <!-- Search & Filter Controls -->
-                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
-                    <div class="glass-panel px-4 py-2 rounded-xl flex items-center space-x-2 border border-slate-200 flex-grow md:flex-grow-0 bg-white">
-                        <i class="fa-solid fa-magnifying-glass text-indigo-600 text-sm"></i>
-                        <input type="text" id="ai-search" oninput="filterAI()" placeholder="Search AI systems..." class="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full">
+        <!-- ==================== TAB 4: PROJECTS & AI ==================== -->
+        <section id="tab-projects" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="space-y-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">AI Projects & Enterprise Innovations</h2>
+                        <p class="mt-2 text-slate-600">Explore production-grade AI pipelines, document intelligence, and secure cloud systems.</p>
                     </div>
-
-                    <div class="glass-panel px-4 py-2 rounded-xl flex items-center space-x-2 border border-slate-200 bg-white">
-                        <i class="fa-solid fa-filter text-indigo-600 text-sm"></i>
-                        <select id="ai-filter" onchange="filterAI()" class="bg-transparent text-xs text-slate-900 focus:outline-none cursor-pointer">
-                            <option value="all">All AI Projects</option>
-                            <option value="rag">GenAI / RAG</option>
-                            <option value="mlops">MLOps & Prediction</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Grid -->
-            <div id="ai-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- AI Card 1 -->
-                <div class="ai-card glass-card rounded-3xl overflow-hidden border border-slate-200 flex flex-col group cursor-pointer" data-category="rag" data-title="Enterprise LLM RAG Knowledge Base" data-desc="Secure question-answering assistant over 5M+ internal technical documents using LangChain, Pinecone vector DB, and hybrid semantic-lexical search." onclick="openModal('Enterprise LLM RAG Knowledge Base', 'Secure question-answering assistant over 5M+ internal technical documents using LangChain, Pinecone vector DB, and hybrid semantic-lexical search with GPT-4 and Llama 3 models.', 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80')">
-                    <div class="relative overflow-hidden aspect-video bg-slate-100">
-                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80" alt="RAG System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-3 right-3 glass-panel px-3 py-1 rounded-full text-xs font-bold text-indigo-600 bg-white/90">GenAI / RAG</div>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Enterprise LLM RAG Knowledge Base</h3>
-                            <p class="text-slate-600 text-xs mt-2 line-clamp-2">High-accuracy retrieval-augmented generation engine connecting enterprise documents securely to large language models.</p>
-                        </div>
-                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 text-xs text-slate-500">
-                            <span class="flex items-center space-x-1"><i class="fa-solid fa-brain text-indigo-600"></i> <span>LangChain / Pinecone</span></span>
-                            <span class="text-indigo-600 font-semibold flex items-center">Case Study <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                        </div>
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterProjects('all')" class="project-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white shadow-md transition-all">All</button>
+                        <button onclick="filterProjects('ai')" class="project-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">AI & Vision</button>
+                        <button onclick="filterProjects('data')" class="project-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">Data Pipelines</button>
+                        <button onclick="filterProjects('security')" class="project-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">Security</button>
                     </div>
                 </div>
 
-                <!-- AI Card 2 -->
-                <div class="ai-card glass-card rounded-3xl overflow-hidden border border-slate-200 flex flex-col group cursor-pointer" data-category="mlops" data-title="Real-time Predictive MLOps Platform" data-desc="End-to-end machine learning lifecycle platform using MLflow and Kubeflow, serving low-latency fraud detection models handling 10k requests/sec." onclick="openModal('Real-time Predictive MLOps Platform', 'End-to-end machine learning lifecycle platform using MLflow and Kubeflow, serving low-latency fraud detection models handling 10k requests/sec with automated drift detection.', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80')">
-                    <div class="relative overflow-hidden aspect-video bg-slate-100">
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="MLOps Platform" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute top-3 right-3 glass-panel px-3 py-1 rounded-full text-xs font-bold text-indigo-600 bg-white/90">MLOps</div>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Real-Time Predictive MLOps Platform</h3>
-                            <p class="text-slate-600 text-xs mt-2 line-clamp-2">Scalable model registry, continuous retraining pipeline, and high-availability inference API for real-time risk scoring.</p>
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="ai">
+                        <div class="p-6 space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold">
+                                <i data-lucide="scan-text" class="w-6 h-6"></i>
+                            </div>
+                            <span class="px-2.5 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-lg border border-brand-100">AI & Computer Vision</span>
+                            <h3 class="text-xl font-bold text-slate-900">Enterprise Cheque OCR & Document Intelligence</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Built end-to-end computer vision and document classification pipelines for automated financial data extraction using deep learning models, translating unstructured streams into clean relational data warehouse layers for reporting tools.
+                            </p>
                         </div>
-                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 text-xs text-slate-500">
-                            <span class="flex items-center space-x-1"><i class="fa-solid fa-microchip text-indigo-600"></i> <span>MLflow / Kubeflow</span></span>
-                            <span class="text-indigo-600 font-semibold flex items-center">Case Study <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">Deep Learning</span>
+                                <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">OCR</span>
+                            </div>
+                            <button onclick="openModal('ocr')" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1">
+                                Case Study <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="data">
+                        <div class="p-6 space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                                <i data-lucide="git-merge" class="w-6 h-6"></i>
+                            </div>
+                            <span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-lg border border-indigo-100">Data Engineering</span>
+                            <h3 class="text-xl font-bold text-slate-900">Snowflake to GCP Migration Framework</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Custom Python DAG orchestrations inside Apache Airflow automating secure data extraction, schema compliance validation, and continuous landing across 10 production feeds with 60% less manual intervention.
+                            </p>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">Airflow</span>
+                                <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">Snowflake</span>
+                            </div>
+                            <button onclick="openModal('migration')" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1">
+                                Case Study <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between" data-category="security">
+                        <div class="p-6 space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                                <i data-lucide="shield" class="w-6 h-6"></i>
+                            </div>
+                            <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-lg border border-emerald-100">Cybersecurity</span>
+                            <h3 class="text-xl font-bold text-slate-900">Smart Home Security Protocol</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Developed a secure session-key establishment protocol for smart home networks using the Diffie-Hellman key exchange algorithm and verified protocol vulnerability security using AVISPA SPAN.
+                            </p>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">Diffie-Hellman</span>
+                                <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">AVISPA</span>
+                            </div>
+                            <button onclick="openModal('security')" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1">
+                                Case Study <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 5: CONTACT VIEW -->
-        <section id="tab-contact" class="tab-content hidden space-y-12 animate-fadeIn max-w-4xl mx-auto">
-            <div class="text-center space-y-4">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Let's Build Together</h2>
-                <p class="text-slate-600 text-base">Have a data engineering challenge or AI architecture requirement? Let's discuss.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                <div class="md:col-span-5 glass-panel p-8 rounded-3xl border border-slate-200 space-y-6 bg-white shadow-sm">
-                    <h3 class="text-xl font-bold text-slate-900">Contact Info</h3>
-                    <div class="space-y-4 text-sm text-slate-600">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400">Email Me</p>
-                                <p class="font-bold text-slate-900">shreya.data@architect.io</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <div>
-                                <p class="text-xs text-slate-400">Location</p>
-                                <p class="font-bold text-slate-900">San Francisco, CA</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-6 border-t border-slate-200 flex space-x-3">
-                        <a href="#" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all bg-white"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all bg-white"><i class="fa-brands fa-github"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-600 hover:text-indigo-600 transition-all bg-white"><i class="fa-brands fa-twitter"></i></a>
-                    </div>
+        <!-- ==================== TAB 5: CONTACT ==================== -->
+        <section id="tab-contact" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="max-w-3xl mx-auto space-y-8">
+                <div class="text-center space-y-2">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Let's Connect</h2>
+                    <p class="text-slate-600">Interested in collaborating or discussing senior data engineering roles? Drop a message below.</p>
                 </div>
 
-                <div class="md:col-span-7 glass-panel p-8 rounded-3xl border border-slate-200 bg-white shadow-sm">
-                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-6">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-2">Your Full Name</label>
-                            <input type="text" id="form-name" required placeholder="John Doe" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 transition-all">
+                <div class="glass-card rounded-3xl p-8 shadow-xl space-y-6">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">Your Name</label>
+                                <input type="text" id="sender-name" required class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-brand-600 text-sm font-medium text-slate-800" placeholder="John Doe">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">Your Email</label>
+                                <input type="email" id="sender-email" required class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-brand-600 text-sm font-medium text-slate-800" placeholder="john@company.com">
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-2">Email Address</label>
-                            <input type="email" id="form-email" required placeholder="john@example.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 transition-all">
+                        <div class="space-y-2">
+                            <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">Message</label>
+                            <textarea id="sender-msg" rows="5" required class="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-brand-600 text-sm font-medium text-slate-800" placeholder="Discussing data architecture opportunities..."></textarea>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-2">Project / Architecture Scope</label>
-                            <textarea id="form-message" required rows="4" placeholder="Tell me about your data pipeline or AI requirements..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-indigo-600 transition-all resize-none"></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-sky-600 text-white font-bold text-sm shadow-md shadow-indigo-500/20 hover:opacity-95 transition-all">
-                            Send Message <i class="fa-solid fa-paper-plane ml-2"></i>
+                        <button type="submit" class="w-full py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold shadow-lg shadow-brand-500/20 transition-all hover:scale-[1.01] flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> Send Message
                         </button>
                     </form>
+                    <div id="form-success" class="hidden p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-center rounded-xl font-medium">
+                        Thank you! Your message has been successfully simulated. I will get back to you shortly.
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-600 pt-4">
+                    <a href="mailto:s44883425@gmail.com" class="flex items-center gap-2 hover:text-brand-600 font-semibold">
+                        <i data-lucide="mail" class="w-4 h-4 text-brand-600"></i> s44883425@gmail.com
+                    </a>
+                    <a href="https://www.linkedin.com/in/shreya-mohanty-05aa60244" target="_blank" class="flex items-center gap-2 hover:text-brand-600 font-semibold">
+                        <i data-lucide="linkedin" class="w-4 h-4 text-brand-600"></i> LinkedIn Profile
+                    </a>
+                    <span class="flex items-center gap-2 font-semibold">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-brand-600"></i> Bangalore / Pune / Hyderabad / Chennai
+                    </span>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- PROJECT / ARCHITECTURE DETAIL MODAL -->
-    <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-fadeIn">
-        <div class="glass-panel max-w-2xl w-full p-8 rounded-3xl border border-slate-200 relative space-y-6 shadow-2xl bg-white">
-            <button onclick="closeModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-200 transition-all">
-                <i class="fa-solid fa-xmark text-lg"></i>
+    <!-- Modal Template -->
+    <div id="project-modal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl max-w-2xl w-full p-8 shadow-2xl space-y-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-6 right-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
             </button>
-            <div class="space-y-2">
-                <span class="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Architecture Deep-Dive</span>
-                <h3 id="modal-title" class="text-2xl font-bold text-slate-900"></h3>
-            </div>
-            <div id="modal-img-container" class="rounded-2xl overflow-hidden aspect-video bg-slate-100">
-                <img id="modal-img" src="" alt="Architecture Preview" class="w-full h-full object-cover">
-            </div>
-            <p id="modal-desc" class="text-slate-600 text-sm leading-relaxed"></p>
-            <div class="pt-4 border-t border-slate-200 flex items-center justify-end space-x-4">
-                <button onclick="closeModal()" class="px-6 py-2.5 rounded-xl glass-card text-slate-700 text-sm font-semibold hover:bg-slate-50 transition-all">Close</button>
-                <button onclick="closeModal(); switchTab('contact');" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-sky-600 text-white text-sm font-semibold shadow-md shadow-indigo-500/20 hover:opacity-95 transition-all">Discuss Architecture</button>
+            <div id="modal-content" class="space-y-4">
+                <!-- Dynamic Content injected via JS -->
             </div>
         </div>
     </div>
 
-    <!-- NOTIFICATION BOX -->
-    <div id="notification-box" class="fixed bottom-6 right-6 z-50 hidden glass-panel px-6 py-4 rounded-2xl border border-indigo-200 shadow-xl flex items-center space-x-3 text-slate-900 bg-white">
-        <i class="fa-solid fa-circle-check text-indigo-600 text-xl"></i>
-        <span id="notification-text" class="text-sm font-medium">Message sent successfully!</span>
-    </div>
+    <!-- Footer -->
+    <footer class="mt-20 border-t border-slate-200 py-8 text-center text-xs text-slate-500">
+        <p>&copy; 2026 Shreya Mohanty. All rights reserved. Built with Enterprise Data Engineering Standards.</p>
+    </footer>
 
+    <!-- JavaScript Application Logic -->
     <script>
-        // Tab switching controller
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Tab Switching Logic
         function switchTab(tabId) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.add('hidden'));
-
-            const targetTab = document.getElementById(`tab-${tabId}`);
-            if (targetTab) {
-                targetTab.classList.remove('hidden');
-            }
-
-            const navButtons = document.querySelectorAll('.nav-btn');
-            navButtons.forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-500/20');
-                btn.classList.add('text-slate-600', 'hover:text-slate-900', 'hover:bg-white/50');
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
             });
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
 
-            const activeNavBtn = document.getElementById(`nav-${tabId}`);
-            if (activeNavBtn) {
-                activeNavBtn.classList.remove('text-slate-600', 'hover:text-slate-900', 'hover:bg-white/50');
-                activeNavBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-500/20');
-            }
-
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-brand-600', 'bg-brand-50');
+                btn.classList.add('text-slate-600');
+                if(btn.dataset.tab === tabId) {
+                    btn.classList.add('text-brand-600', 'bg-brand-50');
+                    btn.classList.remove('text-slate-600');
+                }
+            });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Mobile menu toggle
+        // Mobile Menu Toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('mobile-menu-icon');
             menu.classList.toggle('hidden');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
         }
 
-        // Pipeline filter and search logic
-        function filterPipelines() {
-            const filterValue = document.getElementById('pipeline-filter').value;
-            const searchValue = document.getElementById('pipeline-search').value.toLowerCase();
-            const cards = document.querySelectorAll('.pipeline-card');
+        // Project Filtering
+        function filterProjects(category) {
+            document.querySelectorAll('.project-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            });
+            event.target.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+            event.target.classList.remove('bg-white', 'text-slate-600', 'border');
 
-            cards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                const title = card.getAttribute('data-title').toLowerCase();
-                const desc = card.getAttribute('data-desc').toLowerCase();
-
-                const matchesCategory = (filterValue === 'all' || category === filterValue);
-                const matchesSearch = (title.includes(searchValue) || desc.includes(searchValue));
-
-                if (matchesCategory && matchesSearch) {
+            document.querySelectorAll('.project-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
@@ -497,58 +551,55 @@
             });
         }
 
-        // AI filter and search logic
-        function filterAI() {
-            const filterValue = document.getElementById('ai-filter').value;
-            const searchValue = document.getElementById('ai-search').value.toLowerCase();
-            const cards = document.querySelectorAll('.ai-card');
+        // Modal Case Studies Data
+        const caseStudies = {
+            ocr: {
+                title: "Enterprise Cheque OCR & Document Intelligence System",
+                tag: "AI & Computer Vision",
+                desc: "End-to-end computer vision and document classification pipeline built for automated financial data extraction using deep learning models. Translates messy unstructured financial streams into clean relational data warehouse schemas for reporting tools.",
+                metrics: ["Automated Document Classification", "Zero-Loss Relational Landing", "Integrated with Enterprise BI"]
+            },
+            migration: {
+                title: "Snowflake to GCP Python DAG Migration Framework",
+                tag: "Data Engineering Architecture",
+                desc: "High-performance data migration ingestion framework using custom Python DAG orchestrations inside Apache Airflow. Automated secure extraction, schema compliance validation, and continuous data landing across 10 production feeds, reducing manual processing intervention by 60 percent.",
+                metrics: ["60% Less Manual Intervention", "10 Production Feeds Automated", "Airflow DAG Orchestration"]
+            },
+            security: {
+                title: "Smart Home Security Protocol",
+                tag: "Cybersecurity & Cryptography",
+                desc: "Secure session-key establishment protocol engineered for smart home networks using the Diffie-Hellman key exchange algorithm, with rigorous protocol vulnerability verification executed using AVISPA SPAN.",
+                metrics: ["Diffie-Hellman Key Exchange", "AVISPA SPAN Verified", "Encrypted IoT Sessions"]
+            }
+        };
 
-            cards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                const title = card.getAttribute('data-title').toLowerCase();
-                const desc = card.getAttribute('data-desc').toLowerCase();
-
-                const matchesCategory = (filterValue === 'all' || category === filterValue);
-                const matchesSearch = (title.includes(searchValue) || desc.includes(searchValue));
-
-                if (matchesCategory && matchesSearch) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        // Modal controller
-        function openModal(title, desc, imgSrc) {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-desc').innerText = desc;
-            document.getElementById('modal-img').src = imgSrc;
-            const modal = document.getElementById('project-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+        function openModal(key) {
+            const data = caseStudies[key];
+            const container = document.getElementById('modal-content');
+            container.innerHTML = `
+                <span class="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-semibold rounded-lg border border-brand-100">${data.tag}</span>
+                <h3 class="text-2xl font-bold text-slate-900">${data.title}</h3>
+                <p class="text-slate-600 leading-relaxed text-sm">${data.desc}</p>
+                <div class="space-y-2 pt-2">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Key Impact & Architecture Highlights</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        ${data.metrics.map(m => `<div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-brand-600"></i> ${m}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+            document.getElementById('project-modal').classList.remove('hidden');
         }
 
         function closeModal() {
-            const modal = document.getElementById('project-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            document.getElementById('project-modal').classList.add('hidden');
         }
 
-        // Contact form submission handler
-        function handleContactSubmit(event) {
-            event.preventDefault();
-            const name = document.getElementById('form-name').value;
-            
-            const notif = document.getElementById('notification-box');
-            document.getElementById('notification-text').innerText = `Thanks ${name}! Shreya has received your architecture inquiry.`;
-            notif.classList.remove('hidden');
-
-            document.getElementById('contact-form').reset();
-
-            setTimeout(() => {
-                notif.classList.add('hidden');
-            }, 4000);
+        // Contact Form Simulation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            document.getElementById('contact-form').style.display = 'none';
+            document.getElementById('form-success').classList.remove('hidden');
         }
     </script>
 </body>
